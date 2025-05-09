@@ -10,8 +10,8 @@
     th:first-child, td:first-child {
       position: sticky;
       left: 0;
-      background-color: #ffffff;
-      z-index: 40;
+      background-color: white !important;
+      z-index: 50;
     }
     td {
       transition: background-color 0.3s ease, color 0.3s ease;
@@ -31,12 +31,12 @@
 
     <div class="flex flex-wrap justify-center gap-4 mb-6">
       <div class="flex flex-col items-center">
-        <label for="allegroSlider" class="text-sm font-semibold">Prowizja Allegro: <span id="allegroValue">10%</span></label>
+        <label for="allegroSlider" class="text-sm font-semibold">Allegro: <span id="allegroValue">10%</span></label>
         <input type="range" id="allegroSlider" min="3" max="25" value="10" oninput="updateMatrix()" class="w-32 accent-blue-600">
       </div>
 
       <div>
-        <label for="extraCost" class="block text-sm font-semibold">Koszty (20–50 zł):</label>
+        <label for="extraCost" class="block text-sm font-semibold">Koszty:</label>
         <select id="extraCost" onchange="updateMatrix()" class="border rounded px-2 py-1">
 <option value="20">20 zł</option>
 <option value="30">30 zł</option>
@@ -46,7 +46,7 @@
       </div>
 
       <div>
-        <label for="gameCost" class="block text-sm font-semibold">Gry (0–200 zł):</label>
+        <label for="gameCost" class="block text-sm font-semibold">Gry:</label>
         <select id="gameCost" onchange="updateMatrix()" class="border rounded px-2 py-1">
 <option value="0">0 zł</option>
 <option value="10">10 zł</option>
@@ -74,7 +74,7 @@
 
       <div class="flex items-center">
         <input type="checkbox" id="pracaCheckbox" checked onchange="updateMatrix()" class="mr-2 accent-blue-600">
-        <label for="pracaCheckbox" class="text-sm font-semibold">Praca (40 zł)</label>
+        <label for="pracaCheckbox" class="text-sm font-semibold">[40 zł]</label>
       </div>
     </div>
 
