@@ -19,7 +19,7 @@ function updateMatrix() {
     html += "</tr></thead><tbody>";
 
     for (let y = 0; y < sprzedazValues.length; y++) {
-        html += '<tr><th class="bg-gray-50 font-semibold sticky left-0">' + sprzedazValues[y] + '</th>';
+        html += '<tr><th class="bg-white sticky left-0 z-30 text-sm font-semibold whitespace-nowrap">' + sprzedazValues[y] + '</th>';
         for (let x = 0; x < zakupValues.length; x++) {
             html += matrixCell(x, y, allegroFraction, extraCost, gameCost, pracaCost);
         }
@@ -46,7 +46,7 @@ function matrixCell(x, y, allegroFraction, extraCost, gameCost, pracaCost) {
     else if (zysk <= 150) color = "bg-yellow-200";
     else color = "bg-green-200";
 
-    return '<td class="' + color + ' font-medium">' + zysk + '</td>';
+    return '<td class="whitespace-nowrap ' + color + '">' + zysk + '</td>';
 }
 
 window.addEventListener("resize", updateMatrix);
