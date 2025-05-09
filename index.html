@@ -20,6 +20,16 @@
     table {
       table-layout: fixed;
     }
+    .left-mask {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 80px;
+      height: 100%;
+      background: white;
+      z-index: 30;
+      pointer-events: none;
+    }
   </style>
 </head>
 <body class="bg-gradient-to-br from-blue-100 to-indigo-100 min-h-screen text-gray-800">
@@ -78,7 +88,8 @@
       </div>
     </div>
 
-    <div id="matrixContainer" class="overflow-x-auto w-full rounded-lg shadow-md bg-white p-2">
+    <div class="relative overflow-x-auto w-full rounded-lg shadow-md bg-white p-2">
+      <div class="left-mask"></div>
       <div class="min-w-[900px]" id="matrixSingle"></div>
     </div>
   </div>
