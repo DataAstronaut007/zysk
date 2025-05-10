@@ -64,3 +64,19 @@ th {
 .green { background-color: #b2f2bb; }
 .yellow { background-color: #fff3bf; }
 .red { background-color: #ffa8a8; }
+
+.controls-row {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+}
+.controls-line {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+}

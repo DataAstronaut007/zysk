@@ -9,22 +9,24 @@
 </head>
 <body>
     <div class="container">
-        <h1 class="header">📊 Macierz Zysków</h1>
-        <div class="controls">
-            <label for="commission">Allegro:</label>
-            <input type="range" id="commission" min="3" max="15" value="8" />
-            <span id="commissionValue">8%</span>
+        <h1 class="header">💰 Zysk</h1>
+        <div class="controls-row">
+            <div class="controls-line">
+                <label for="commission">💸 Allegro:</label>
+                <input type="range" id="commission" min="3" max="15" value="8" />
+                <span id="commissionValue">8%</span>
+            </div>
+            <div class="controls-line">
+                <label for="additionalCosts">📦 Koszty:</label>
+                <select id="additionalCosts">
+                    <option value="20">20 zł</option>
+                    <option value="30">30 zł</option>
+                    <option value="40">40 zł</option>
+                    <option value="50">50 zł</option>
+                </select>
 
-            <label for="additionalCosts">Koszty:</label>
-            <select id="additionalCosts">
-                <option value="20">20 zł</option>
-                <option value="30">30 zł</option>
-                <option value="40">40 zł</option>
-                <option value="50">50 zł</option>
-            </select>
-
-            <label for="gameCosts">Gry:</label>
-            <select id="gameCosts">
+                <label for="gameCosts">🎮 Gry:</label>
+                <select id="gameCosts">
 <option value='0'>0 zł</option>
 <option value='20'>20 zł</option>
 <option value='40'>40 zł</option>
@@ -38,9 +40,10 @@
 <option value='200'>200 zł</option>
 <option value='220'>220 zł</option>
 <option value='240'>240 zł</option>
-            </select>
+                </select>
 
-            <label><input type="checkbox" id="workCost" checked /> [40 zł]</label>
+                <label>🔍 <input type="checkbox" id="workCost" checked /> [40 zł]</label>
+            </div>
         </div>
         <div class="table-container">
             <div id="matrix"></div>
