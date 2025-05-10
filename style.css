@@ -1,2 +1,66 @@
 
-/* Tailwind handles the styling */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #e6f0ff;
+}
+
+.container {
+    padding: 20px;
+    max-width: 100%;
+    overflow-x: auto;
+}
+
+.header {
+    text-align: center;
+}
+
+.controls {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.table-container {
+    overflow-x: auto;
+    background: white;
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+#matrix {
+    border-collapse: collapse;
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+}
+
+table {
+    border-collapse: collapse;
+    margin: 0 auto;
+}
+
+td, th {
+    padding: 4px;
+    min-width: 50px;
+    text-align: center;
+    border: 1px solid #ccc;
+    font-weight: normal;
+}
+
+th.sticky-col, td.sticky-col {
+    position: sticky;
+    left: 0;
+    background: white;
+    z-index: 1;
+    box-shadow: 2px 0 5px rgba(0,0,0,0.05);
+}
+
+th {
+    background-color: #f5f5f5;
+    font-weight: bold;
+}
+
+.green { background-color: #b2f2bb; }
+.yellow { background-color: #fff3bf; }
+.red { background-color: #ffa8a8; }

@@ -1,53 +1,45 @@
 
-const zakupValues = [300, 350, 400, 450, 500, 550, 600, 650, 700, 750, 800, 850, 900, 950, 1000, 1100, 1200, 1300, 1400, 1500, 1600];
-const sprzedazValues = [600, 650, 700, 750, 800, 850, 900, 950, 1000, 1050, 1100, 1150, 1200, 1250, 1300, 1350, 1400, 1450, 1500, 1600, 1700, 1800, 1900, 2000, 2100, 2200, 2300, 2400, 2500, 2600];
+function generateMatrix() {
+    const commission = parseFloat(document.getElementById("commission").value);
+    const extraCost = parseInt(document.getElementById("additionalCosts").value);
+    const gameCost = parseInt(document.getElementById("gameCosts").value);
+    const workCost = document.getElementById("workCost").checked ? 40 : 0;
+    const matrixDiv = document.getElementById("matrix");
+    const buyPrices = [];
+    const sellPrices = [];
 
-function updateMatrix() {
-    const allegroRate = parseFloat(document.getElementById("allegroSlider").value);
-    const allegroFraction = allegroRate / 100;
-    const extraCost = parseInt(document.getElementById("extraCost").value);
-    const gameCost = parseInt(document.getElementById("gameCost").value);
-    const pracaChecked = document.getElementById("pracaCheckbox").checked;
-    const pracaCost = pracaChecked ? 40 : 0;
+    for (let i = 300; i <= 1000; i += 50) buyPrices.push(i);
+    for (let i = 1100; i <= 1600; i += 100) buyPrices.push(i);
 
-    document.getElementById("allegroValue").textContent = allegroRate.toFixed(0) + "%";
+    for (let i = 600; i <= 1500; i += 50) sellPrices.push(i);
+    for (let i = 1600; i <= 2600; i += 100) sellPrices.push(i);
 
-    let html = "<table class='table-auto border-collapse w-full text-xs text-center'><thead><tr><th class='bg-gray-100 font-semibold sticky left-0'>Kupno →<br>Sprzedaż ↓</th>";
-    for (let i = 0; i < zakupValues.length; i++) {
-        html += '<th class="bg-gray-50">' + zakupValues[i] + '</th>';
-    }
-    html += "</tr></thead><tbody>";
+    let table = "<table><thead><tr><th class='sticky-col'>Kupno →<br>Sprzedaż ↓</th>";
+    for (let buy of buyPrices) table += "<th>" + buy + "</th>";
+    table += "</tr></thead><tbody>";
 
-    for (let y = 0; y < sprzedazValues.length; y++) {
-        html += '<tr><th class="bg-white sticky left-0 z-30 text-sm font-semibold whitespace-nowrap">' + sprzedazValues[y] + '</th>';
-        for (let x = 0; x < zakupValues.length; x++) {
-            html += matrixCell(x, y, allegroFraction, extraCost, gameCost, pracaCost);
+    for (let sell of sellPrices) {
+        table += "<tr><th class='sticky-col'>" + sell + "</th>";
+        for (let buy of buyPrices) {
+            let commissionFee = sell * (commission / 100);
+            let pcc = buy > 1000 ? buy * 0.02 : 0;
+            let profit = sell - buy - commissionFee - extraCost - gameCost - workCost - pcc;
+            let cls = profit > 149 ? 'green' : profit > 0 ? 'yellow' : 'red';
+            table += "<td class='" + cls + "'>" + Math.round(profit) + "</td>";
         }
-        html += "</tr>";
+        table += "</tr>";
     }
 
-    html += "</tbody></table>";
-    document.getElementById("matrixSingle").innerHTML = html;
+    table += "</tbody></table>";
+    matrixDiv.innerHTML = table;
 }
 
-function matrixCell(x, y, allegroFraction, extraCost, gameCost, pracaCost) {
-    const zakup = zakupValues[x];
-    const sprzedaz = sprzedazValues[y];
-    const prowizja = Math.round(sprzedaz * allegroFraction);
-    const pcc = zakup > 1000 ? Math.round(zakup * 0.02) : 0;
-    const marza = sprzedaz - zakup - prowizja - extraCost - gameCost - pcc;
-    const vat = Math.round((marza / 1.23) * 0.23);
-    const zyskNetto = Math.round(marza - vat);
-    const podDoch = Math.round(zyskNetto * 0.19);
-    const zysk = zyskNetto - podDoch - pracaCost;
+document.getElementById("commission").addEventListener("input", function () {
+    document.getElementById("commissionValue").innerText = this.value + "%";
+    generateMatrix();
+});
+document.getElementById("additionalCosts").addEventListener("change", generateMatrix);
+document.getElementById("gameCosts").addEventListener("change", generateMatrix);
+document.getElementById("workCost").addEventListener("change", generateMatrix);
 
-    let color = "";
-    if (zysk < 0) color = "bg-red-300 text-white";
-    else if (zysk <= 150) color = "bg-yellow-200";
-    else color = "bg-green-200";
-
-    return '<td class="whitespace-nowrap ' + color + '">' + zysk + '</td>';
-}
-
-window.addEventListener("resize", updateMatrix);
-window.addEventListener("load", updateMatrix);
+window.onload = generateMatrix;

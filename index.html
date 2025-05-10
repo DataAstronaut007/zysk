@@ -2,98 +2,50 @@
 <!DOCTYPE html>
 <html lang="pl">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Macierz Zysków</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <style>
-    th:first-child, td:first-child {
-      position: sticky;
-      left: 0;
-      background-color: white !important;
-      z-index: 50;
-    }
-    td {
-      transition: background-color 0.3s ease, color 0.3s ease;
-      white-space: nowrap;
-    }
-    table {
-      table-layout: fixed;
-    }
-    .left-mask {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 80px;
-      height: 100%;
-      background: white;
-      z-index: 30;
-      pointer-events: none;
-    }
-  </style>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Macierz Zysków</title>
+    <link rel="stylesheet" href="style.css" />
 </head>
-<body class="bg-gradient-to-br from-blue-100 to-indigo-100 min-h-screen text-gray-800">
-  <div class="max-w-7xl mx-auto p-4">
-    <div class="flex items-center justify-center gap-3 mb-4">
-      <img src="https://img.icons8.com/fluency/48/combo-chart.png" alt="Ikona" class="w-8 h-8">
-      <h1 class="text-3xl font-bold text-center">Macierz Zysków</h1>
+<body>
+    <div class="container">
+        <h1 class="header">📊 Macierz Zysków</h1>
+        <div class="controls">
+            <label for="commission">Allegro:</label>
+            <input type="range" id="commission" min="3" max="15" value="8" />
+            <span id="commissionValue">8%</span>
+
+            <label for="additionalCosts">Koszty:</label>
+            <select id="additionalCosts">
+                <option value="20">20 zł</option>
+                <option value="30">30 zł</option>
+                <option value="40">40 zł</option>
+                <option value="50">50 zł</option>
+            </select>
+
+            <label for="gameCosts">Gry:</label>
+            <select id="gameCosts">
+<option value='0'>0 zł</option>
+<option value='20'>20 zł</option>
+<option value='40'>40 zł</option>
+<option value='60'>60 zł</option>
+<option value='80'>80 zł</option>
+<option value='100'>100 zł</option>
+<option value='120'>120 zł</option>
+<option value='140'>140 zł</option>
+<option value='160'>160 zł</option>
+<option value='180'>180 zł</option>
+<option value='200'>200 zł</option>
+<option value='220'>220 zł</option>
+<option value='240'>240 zł</option>
+            </select>
+
+            <label><input type="checkbox" id="workCost" checked /> [40 zł]</label>
+        </div>
+        <div class="table-container">
+            <div id="matrix"></div>
+        </div>
     </div>
-
-    <div class="flex flex-wrap justify-center gap-4 mb-6">
-      <div class="flex flex-col items-center">
-        <label for="allegroSlider" class="text-sm font-semibold">Allegro: <span id="allegroValue">10%</span></label>
-        <input type="range" id="allegroSlider" min="3" max="25" value="10" oninput="updateMatrix()" class="w-32 accent-blue-600">
-      </div>
-
-      <div>
-        <label for="extraCost" class="block text-sm font-semibold">Koszty:</label>
-        <select id="extraCost" onchange="updateMatrix()" class="border rounded px-2 py-1">
-<option value="20">20 zł</option>
-<option value="30">30 zł</option>
-<option value="40">40 zł</option>
-<option value="50">50 zł</option>
-        </select>
-      </div>
-
-      <div>
-        <label for="gameCost" class="block text-sm font-semibold">Gry:</label>
-        <select id="gameCost" onchange="updateMatrix()" class="border rounded px-2 py-1">
-<option value="0">0 zł</option>
-<option value="10">10 zł</option>
-<option value="20">20 zł</option>
-<option value="30">30 zł</option>
-<option value="40">40 zł</option>
-<option value="50">50 zł</option>
-<option value="60">60 zł</option>
-<option value="70">70 zł</option>
-<option value="80">80 zł</option>
-<option value="90">90 zł</option>
-<option value="100">100 zł</option>
-<option value="110">110 zł</option>
-<option value="120">120 zł</option>
-<option value="130">130 zł</option>
-<option value="140">140 zł</option>
-<option value="150">150 zł</option>
-<option value="160">160 zł</option>
-<option value="170">170 zł</option>
-<option value="180">180 zł</option>
-<option value="190">190 zł</option>
-<option value="200">200 zł</option>
-        </select>
-      </div>
-
-      <div class="flex items-center">
-        <input type="checkbox" id="pracaCheckbox" checked onchange="updateMatrix()" class="mr-2 accent-blue-600">
-        <label for="pracaCheckbox" class="text-sm font-semibold">[40 zł]</label>
-      </div>
-    </div>
-
-    <div class="relative overflow-x-auto w-full rounded-lg shadow-md bg-white p-2">
-      <div class="left-mask"></div>
-      <div class="min-w-[900px]" id="matrixSingle"></div>
-    </div>
-  </div>
-
-  <script src="script.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
