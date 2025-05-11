@@ -2,8 +2,8 @@ function generateMatrix() {
     const commission = parseFloat(document.getElementById("commission").value);
     const extraCost = parseInt(document.getElementById("additionalCosts").value);
     const gameCost = parseInt(document.getElementById("gameCosts").value);
-    const workCost = document.getElementById("workCost").checked ? 40 : 0;
-    const taxRate = parseFloat(document.getElementById("taxRate").value);
+    const workCost = parseInt(document.querySelector('input[name="workCost"]:checked').value);
+    const taxRate = 19; // fixed tax rate
     const matrixDiv = document.getElementById("matrix");
 
     const buyPrices = [];
@@ -47,10 +47,8 @@ document.getElementById("commission").addEventListener("input", function () {
 });
 document.getElementById("additionalCosts").addEventListener("change", generateMatrix);
 document.getElementById("gameCosts").addEventListener("change", generateMatrix);
-document.getElementById("workCost").addEventListener("change", generateMatrix);
-document.getElementById("taxRate").addEventListener("input", function () {
-    document.getElementById("taxRateValue").innerText = this.value + "%";
-    generateMatrix();
+document.querySelectorAll('input[name="workCost"]').forEach(el => {
+    el.addEventListener("change", generateMatrix);
 });
 
 window.onload = generateMatrix;
