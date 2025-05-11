@@ -1,10 +1,11 @@
-
 function generateMatrix() {
     const commission = parseFloat(document.getElementById("commission").value);
     const extraCost = parseInt(document.getElementById("additionalCosts").value);
     const gameCost = parseInt(document.getElementById("gameCosts").value);
     const workCost = document.getElementById("workCost").checked ? 40 : 0;
+    const taxRate = parseFloat(document.getElementById("taxRate").value);
     const matrixDiv = document.getElementById("matrix");
+
     const buyPrices = [];
     const sellPrices = [];
 
@@ -21,10 +22,16 @@ function generateMatrix() {
     for (let sell of sellPrices) {
         table += "<tr><th class='sticky-col'>" + sell + "</th>";
         for (let buy of buyPrices) {
-            let commissionFee = sell * (commission / 100);
-            let pcc = buy > 1000 ? buy * 0.02 : 0;
-            let profit = sell - buy - commissionFee - extraCost - gameCost - workCost - pcc;
-            let cls = profit > 149 ? 'green' : profit > 0 ? 'yellow' : 'red';
+            const commissionFee = sell * (commission / 100);
+            const pcc = buy > 1000 ? buy * 0.02 : 0;
+            const margin = sell - buy - commissionFee - extraCost - gameCost - workCost - pcc;
+
+            const vat = Math.round((margin / 1.23) * 0.23);
+            const netProfit = margin - vat;
+            const incomeTax = netProfit > 0 ? Math.round(netProfit * (taxRate / 100)) : 0;
+            const profit = netProfit - incomeTax;
+
+            const cls = profit > 149 ? 'green' : profit > 0 ? 'yellow' : 'red';
             table += "<td class='" + cls + "'>" + Math.round(profit) + "</td>";
         }
         table += "</tr>";
@@ -41,5 +48,9 @@ document.getElementById("commission").addEventListener("input", function () {
 document.getElementById("additionalCosts").addEventListener("change", generateMatrix);
 document.getElementById("gameCosts").addEventListener("change", generateMatrix);
 document.getElementById("workCost").addEventListener("change", generateMatrix);
+document.getElementById("taxRate").addEventListener("input", function () {
+    document.getElementById("taxRateValue").innerText = this.value + "%";
+    generateMatrix();
+});
 
 window.onload = generateMatrix;
